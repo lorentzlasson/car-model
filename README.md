@@ -1,4 +1,4 @@
-CarModel
+Car Model v0.1
 ========
 
 Built with IoT car simulations in mind.
