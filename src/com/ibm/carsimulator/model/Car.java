@@ -4,20 +4,15 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Car {
-	public final static int HEALTH_FULL = 3;
-	public final static int HEALTH_MEDIUM = 2;
-	public final static int HEALTH_LOW = 1;
-	public final static int HEALTH_NONE = 0;
+	protected final static int HEALTH_FULL = 3;
+	protected final static int HEALTH_MEDIUM = 2;
+	protected final static int HEALTH_LOW = 1;
+	protected final static int HEALTH_NONE = 0;
 	
-	public final static String HEALTH_MSG_FULL = "The %s is newly served. Drive safe.";
-	public final static String HEALTH_MSG_MEDIUM = "The %s is getting worn down. Serving it would be a good idea.";
-	public final static String HEALTH_MSG_LOW = "The %s is breaking down. It needs imidiate service.";
-	public final static String HEALTH_MSG_NONE = "The %s is broken. Call a towing service";
-	
-//	public final static String HEALTH_MSG_FULL = "%s = 3";
-//	public final static String HEALTH_MSG_MEDIUM = "%s = 2";
-//	public final static String HEALTH_MSG_LOW = "%s = 1";
-//	public final static String HEALTH_MSG_NONE = "%s = 0";
+	protected final static String HEALTH_MSG_FULL = "The %s is newly served. Drive safe. %d";
+	protected final static String HEALTH_MSG_MEDIUM = "The %s is getting worn down. Serving it would be a good idea. %d";
+	protected final static String HEALTH_MSG_LOW = "The %s is breaking down. It needs imidiate service. %d";
+	protected final static String HEALTH_MSG_NONE = "The %s is broken. Call a towing service. %d";
 	
 	private String name;
 	private Map<String, CarPart> carParts;
@@ -53,12 +48,12 @@ public class Car {
 	}
 	
 	/**
-	 * Returns the health of specified car part.
+	 * Returns the health status of specified car part.
 	 * If the car part does not exist, the car health will be returned.
 	 * @param carPart
-	 * @return Status message as byte array
+	 * @return Status message as a byte array
 	 */
-	public byte[] getHealthStatus(String carPart){
+	public byte[] getHealthStatusAsBytes(String carPart){
 		CarPart part = carParts.get(carPart);
 		if (part != null) {
 			return part.getHealthStatus();			
@@ -67,16 +62,16 @@ public class Car {
 		int overAllHealth = getOverallHealth();
 		switch (overAllHealth) {
 		case Car.HEALTH_FULL:
-			return String.format(Car.HEALTH_MSG_FULL, name.toUpperCase()).getBytes();
+			return String.format(Car.HEALTH_MSG_FULL, name.toUpperCase(), overAllHealth).getBytes();
 
 		case Car.HEALTH_MEDIUM:
-			return String.format(Car.HEALTH_MSG_MEDIUM, name.toUpperCase()).getBytes();
+			return String.format(Car.HEALTH_MSG_MEDIUM, name.toUpperCase(), overAllHealth).getBytes();
 
 		case Car.HEALTH_LOW:
-			return String.format(Car.HEALTH_MSG_LOW, name.toUpperCase()).getBytes();
+			return String.format(Car.HEALTH_MSG_LOW, name.toUpperCase(), overAllHealth).getBytes();
 
 		case Car.HEALTH_NONE:
-			return String.format(Car.HEALTH_MSG_NONE, name.toUpperCase()).getBytes();
+			return String.format(Car.HEALTH_MSG_NONE, name.toUpperCase(), overAllHealth).getBytes();
 			
 		default:
 			return "Default.".getBytes();
@@ -96,6 +91,16 @@ public class Car {
 		}else {
 			serveCarParts();
 		}
+	}
+	
+	/**
+	 * Returns the health status of specified car part.
+	 * If the car part does not exist, the car health will be returned.
+	 * @param carPart
+	 * @return Status message as a string
+	 */
+	public String getHealthStatus(String carPart) {
+		return new String(getHealthStatusAsBytes(carPart));
 	}
 	
 	private void serveCarParts() {
