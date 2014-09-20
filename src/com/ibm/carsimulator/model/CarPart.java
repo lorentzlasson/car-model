@@ -25,16 +25,16 @@ class CarPart {
 	protected byte[] getHealthStatus() {
 		switch (health) {
 		case Car.HEALTH_FULL:
-			return String.format(Car.HEALTH_MSG_FULL, name.toUpperCase()).getBytes();
+			return String.format(Car.HEALTH_MSG_FULL, name.toUpperCase(), health).getBytes();
 
 		case Car.HEALTH_MEDIUM:
-			return String.format(Car.HEALTH_MSG_MEDIUM, name.toUpperCase()).getBytes();
+			return String.format(Car.HEALTH_MSG_MEDIUM, name.toUpperCase(), health).getBytes();
 
 		case Car.HEALTH_LOW:
-			return String.format(Car.HEALTH_MSG_LOW, name.toUpperCase()).getBytes();
+			return String.format(Car.HEALTH_MSG_LOW, name.toUpperCase(), health).getBytes();
 
 		case Car.HEALTH_NONE:
-			return String.format(Car.HEALTH_MSG_NONE, name.toUpperCase()).getBytes();
+			return String.format(Car.HEALTH_MSG_NONE, name.toUpperCase(), health).getBytes();
 			
 		default:
 			return "Default.".getBytes();
