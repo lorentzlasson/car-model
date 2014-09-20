@@ -9,7 +9,7 @@ Get started
 
 Documentation
 -
-<a href="http://lorentzlasson.github.io/CarModel/doc/">javadoc</a>
+<a href="http://lorentzlasson.github.io/CarModel/doc/" target="_blank">javadoc</a>
 
 Available on
 -
