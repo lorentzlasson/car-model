@@ -7,4 +7,7 @@ Built with IoT car simulations in mind.
 
 [Documentation] (http://lorentzlasson.github.io/CarModel/doc/)
 
-Available on GitHub and DevOps Services
+Available on:
+[GitHub] (https://github.com/lorentzlasson/CarModel)
+and 
+[DevOps Services] (https://hub.jazz.net/project/lorentzlasson2/CarModel/overview)
