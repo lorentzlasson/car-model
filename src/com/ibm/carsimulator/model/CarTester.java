@@ -7,7 +7,7 @@ import org.junit.Test;
 public class CarTester {
 
 	@Test
-	public void test1() {
+	public void testByAssertions() {
 		String[][] carParts = {
 				{"eng", "engine"},
 				{"exh", "exhaust"},
@@ -27,5 +27,45 @@ public class CarTester {
 		car.tear("eng");
 		car.tear("eng");
 		assertEquals(2, car.getOverallHealth());		
+	}
+	
+	@Test
+	public void testByLoging() {
+		String[][] carParts = {
+				{"eng", "engine"},
+				{"exh", "exhaust"},
+				{"ign", "ignition"}
+		};
+		
+		Car car = new Car(carParts);
+		System.out.println(car.getHealthStatus(null));
+		
+		car.tear("eng");
+		System.out.println(car.getHealthStatus(null));
+		
+		car.tear("eng");
+		System.out.println(car.getHealthStatus(null));
+		
+		car.tear("exh");
+		System.out.println(car.getHealthStatus(null));
+		
+		car.tear(null);
+		System.out.println(car.getHealthStatus(null));
+		
+		car.tear("eng");
+		System.out.println(car.getHealthStatus(null));
+		
+		car.tear("eng");
+		System.out.println(car.getHealthStatus(null));
+		
+		car.tear(null);
+		System.out.println(car.getHealthStatus(null));
+		
+		car.serve(null);
+		System.out.println(car.getHealthStatus(null));
+
+		car.tear("ign");
+		System.out.println(car.getHealthStatus("ign"));
+		
 	}	
 }
