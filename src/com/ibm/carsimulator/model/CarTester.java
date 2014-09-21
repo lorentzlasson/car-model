@@ -2,10 +2,16 @@ package com.ibm.carsimulator.model;
 
 import static org.junit.Assert.assertEquals;
 
+import org.junit.Before;
 import org.junit.Test;
 
 public class CarTester {
 
+	@Before
+	public void setup(){
+		Car.setTestMode(true);
+	}
+	
 	@Test
 	public void testByAssertions() {
 		String[][] carParts = {
@@ -41,22 +47,22 @@ public class CarTester {
 		System.out.println(car.getHealthStatus(null));
 		
 		car.tear("eng");
-		System.out.println(car.getHealthStatus(null));
+		System.out.println(car.getHealthStatus("eng"));
 		
 		car.tear("eng");
-		System.out.println(car.getHealthStatus(null));
+		System.out.println(car.getHealthStatus("eng"));
 		
 		car.tear("exh");
-		System.out.println(car.getHealthStatus(null));
+		System.out.println(car.getHealthStatus("exh"));
 		
 		car.tear(null);
 		System.out.println(car.getHealthStatus(null));
 		
 		car.tear("eng");
-		System.out.println(car.getHealthStatus(null));
+		System.out.println(car.getHealthStatus("eng"));
 		
 		car.tear("eng");
-		System.out.println(car.getHealthStatus(null));
+		System.out.println(car.getHealthStatus("eng"));
 		
 		car.tear(null);
 		System.out.println(car.getHealthStatus(null));

@@ -9,10 +9,13 @@ public class Car {
 	protected final static int HEALTH_LOW = 1;
 	protected final static int HEALTH_NONE = 0;
 	
-	protected final static String HEALTH_MSG_FULL = "The %s is newly served. Drive safe. %d";
-	protected final static String HEALTH_MSG_MEDIUM = "The %s is getting worn down. Serving it would be a good idea. %d";
-	protected final static String HEALTH_MSG_LOW = "The %s is breaking down. It needs imidiate service. %d";
-	protected final static String HEALTH_MSG_NONE = "The %s is broken. Call a towing service. %d";
+	protected final static String HEALTH_MSG_FULL = "The %s is newly served. Drive safe. ";
+	protected final static String HEALTH_MSG_MEDIUM = "The %s is getting worn down. Serving it would be a good idea. ";
+	protected final static String HEALTH_MSG_LOW = "The %s is breaking down. It needs imidiate service. ";
+	protected final static String HEALTH_MSG_NONE = "The %s is broken. Call a towing service. ";
+	protected final static String HEALTH_MSG_TEST = "[Health: %d] ";
+	
+	protected static boolean testMode = false;
 	
 	private String name;
 	private Map<String, CarPart> carParts;
@@ -30,6 +33,15 @@ public class Car {
 		for (String[] carPart : carParts) {
 			this.carParts.put(carPart[0], new CarPart(carPart[1]));
 		}
+	}
+	
+	/**
+	 * Select to true if you want to run in test mode. Set to false by default.
+	 * Displays health values in status messages in test mode.
+	 * @param bool
+	 */
+	public static void setTestMode(boolean bool){
+		testMode = bool;
 	}
 	
 	/**
@@ -56,25 +68,38 @@ public class Car {
 	public byte[] getHealthStatusAsBytes(String carPart){
 		CarPart part = carParts.get(carPart);
 		if (part != null) {
-			return part.getHealthStatus();			
+			return part.getHealthStatusAsBytes();			
 		}
 		
-		int overAllHealth = getOverallHealth();
+		int overAllHealth = getOverallHealth();		
+		String msg = "";		
 		switch (overAllHealth) {
-		case Car.HEALTH_FULL:
-			return String.format(Car.HEALTH_MSG_FULL, name.toUpperCase(), overAllHealth).getBytes();
+		case HEALTH_FULL:
+			msg = testMode ?
+					String.format(HEALTH_MSG_TEST + HEALTH_MSG_FULL , overAllHealth, name.toUpperCase()): 
+					String.format(HEALTH_MSG_FULL, name.toUpperCase());
+			return msg.getBytes();
 
-		case Car.HEALTH_MEDIUM:
-			return String.format(Car.HEALTH_MSG_MEDIUM, name.toUpperCase(), overAllHealth).getBytes();
+		case HEALTH_MEDIUM:
+			msg = testMode ?
+					String.format(HEALTH_MSG_TEST + HEALTH_MSG_MEDIUM , overAllHealth, name.toUpperCase()): 
+					String.format(HEALTH_MSG_MEDIUM , name.toUpperCase());
+			return msg.getBytes();
 
-		case Car.HEALTH_LOW:
-			return String.format(Car.HEALTH_MSG_LOW, name.toUpperCase(), overAllHealth).getBytes();
+		case HEALTH_LOW:
+			msg = testMode ?
+					String.format(HEALTH_MSG_TEST + HEALTH_MSG_LOW , overAllHealth, name.toUpperCase()): 
+					String.format(HEALTH_MSG_LOW, name.toUpperCase());
+			return msg.getBytes();
 
-		case Car.HEALTH_NONE:
-			return String.format(Car.HEALTH_MSG_NONE, name.toUpperCase(), overAllHealth).getBytes();
+		case HEALTH_NONE:
+			msg = testMode ?
+					String.format(HEALTH_MSG_TEST + HEALTH_MSG_NONE , overAllHealth, name.toUpperCase()): 
+					String.format(HEALTH_MSG_NONE, name.toUpperCase());
+			return msg.getBytes();
 			
 		default:
-			return "Default.".getBytes();
+			return "Health not found.".getBytes();
 		}	
 	}
 	

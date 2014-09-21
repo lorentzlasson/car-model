@@ -22,19 +22,33 @@ class CarPart {
 		health = Car.HEALTH_FULL;
 	}
 	
-	protected byte[] getHealthStatus() {
+	protected byte[] getHealthStatusAsBytes() {
+		
+		String msg = "";	
 		switch (health) {
 		case Car.HEALTH_FULL:
-			return String.format(Car.HEALTH_MSG_FULL, name.toUpperCase(), health).getBytes();
+			msg = Car.testMode ?
+					String.format(Car.HEALTH_MSG_TEST + Car.HEALTH_MSG_FULL , health, name.toUpperCase()): 
+					String.format(Car.HEALTH_MSG_FULL, name.toUpperCase());
+			return msg.getBytes();
 
 		case Car.HEALTH_MEDIUM:
-			return String.format(Car.HEALTH_MSG_MEDIUM, name.toUpperCase(), health).getBytes();
+			msg = Car.testMode ?
+					String.format(Car.HEALTH_MSG_TEST + Car.HEALTH_MSG_MEDIUM , health, name.toUpperCase()): 
+					String.format(Car.HEALTH_MSG_MEDIUM, name.toUpperCase());
+			return msg.getBytes();
 
 		case Car.HEALTH_LOW:
-			return String.format(Car.HEALTH_MSG_LOW, name.toUpperCase(), health).getBytes();
+			msg = Car.testMode ?
+					String.format(Car.HEALTH_MSG_TEST + Car.HEALTH_MSG_LOW , health, name.toUpperCase()): 
+					String.format(Car.HEALTH_MSG_LOW, name.toUpperCase());
+			return msg.getBytes();
 
 		case Car.HEALTH_NONE:
-			return String.format(Car.HEALTH_MSG_NONE, name.toUpperCase(), health).getBytes();
+			msg = Car.testMode ?
+					String.format(Car.HEALTH_MSG_TEST + Car.HEALTH_MSG_NONE , health, name.toUpperCase()): 
+					String.format(Car.HEALTH_MSG_NONE, name.toUpperCase());
+			return msg.getBytes();
 			
 		default:
 			return "Default.".getBytes();
